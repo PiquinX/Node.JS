@@ -1,0 +1,48 @@
+### get all movies
+GET http://localhost:777/movies
+
+### create movie
+POST http://localhost:777/movies
+Content-Type: application/json
+
+{
+    "title": "The Fellowship Of The Ring",
+    "poster": "https://m.media-amazon.com/images/I/81EBp0vOZZL.jpg"
+}
+
+### delete a movie
+DELETE  http://localhost:777/movies/241bf55d-b649-4109-af7c-0e6890ded3fc
+
+
+
+### get all series
+GET http://localhost:777/series
+
+### create serie
+POST http://localhost:777/series
+Content-Type: application/json
+
+{
+    "title": "Mashle Magic And Muscles",
+    "poster": "https://static.wikia.nocookie.net/doblaje/images/d/da/MASHLE.jpg/revision/latest?cb=20230323125818&path-prefix=es"
+}
+
+### delete a serie
+DELETE  http://localhost:777/series/af168cd1-0d48-47b7-a1de-68517f4bf91d
+
+
+
+### get all books
+GET http://localhost:777/books
+
+### create book
+POST http://localhost:777/books
+Content-Type: application/json
+
+{
+    "title": "How To Make The Best Coffee At Home",
+    "poster": "https://m.media-amazon.com/images/I/81U69Tmw41L._AC_UF1000,1000_QL80_.jpg"
+}
+
+### delete a book
+DELETE  http://localhost:777/books/cd6f7ca8-8e7b-44cb-ba41-c289632faa24
