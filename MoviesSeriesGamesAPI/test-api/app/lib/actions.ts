@@ -1,4 +1,7 @@
-import { BookFormType, BookResponseType, BookType, BooksListType, ErrorType, MovieFormType, MovieResponseType, MoviesListType, SerieFormType, SerieResponseType, SeriesListType } from './definitions'
+'use server'
+
+import { revalidatePath } from 'next/cache'
+import { MovieFormType, MovieResponseType, MoviesListType, SerieFormType, SerieResponseType, SeriesListType } from './definitions'
 
 export const getMovies = async (): Promise<MoviesListType | false> => {
   try {
@@ -10,22 +13,6 @@ export const getMovies = async (): Promise<MoviesListType | false> => {
       id: movie.id,
       title: movie.title,
       poster: movie.poster
-    }))
-  } catch (err) {
-    return false
-  }
-}
-
-export const getBooks = async (): Promise<BooksListType | false> => {
-  try {
-    const response = await fetch('http://localhost:777/books')
-
-    const books = await response.json()
-
-    return books.map((book: BookResponseType) => ({
-      id: book.id,
-      title: book.title,
-      poster: book.poster
     }))
   } catch (err) {
     return false
@@ -48,23 +35,27 @@ export const getSeries = async (): Promise<SeriesListType | false> => {
   }
 }
 
-export const createBook = async ({ title, poster }: BookFormType): Promise<false | string> => {
-  try {
-    const response = await fetch('http://localhost:777/books', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({ title, poster })
-    })
-    const newBook = await response.json()
+// comment the functiones once finished with the server actions, do not delete them.`
+// export const createBook = async ({ title, poster }: BookFormType): Promise<false | string> => {
+//   try {
+//     const response = await fetch('http://localhost:777/books', {
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       method: 'POST',
+//       body: JSON.stringify({ title, poster })
+//     })
+//     const newBook = await response.json()
 
-    if (newBook.errorMessage) return newBook.errorMessage
-    else return false
-  } catch (err) {
-    return 'Unexpected Error, try again'
-  }
-}
+//     if (newBook.errorMessage) return newBook.errorMessage
+//     else {
+//       revalidatePath('/books')
+//       return false
+//     }
+//   } catch (err) {
+//     return 'Unexpected Error, try again'
+//   }
+// }
 
 export const createMovie = async ({ title, poster }: MovieFormType): Promise<false | string> => {
   try {
@@ -78,7 +69,10 @@ export const createMovie = async ({ title, poster }: MovieFormType): Promise<fal
     const newMovie = await response.json()
 
     if (newMovie.errorMessage) return newMovie.errorMessage
-    else return false
+    else {
+      revalidatePath('/movies')
+      return false
+    }
   } catch (err) {
     return 'Unexpected Error, try again'
   }
@@ -96,7 +90,10 @@ export const createSerie = async ({ title, poster }: SerieFormType): Promise<fal
     const newSerie = await response.json()
 
     if (newSerie.errorMessage) return newSerie.errorMessage
-    else return false
+    else {
+      revalidatePath('/series')
+      return false
+    }
   } catch (err) {
     return 'Unexpected Error, try again'
   }

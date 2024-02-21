@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { SerieFormType } from '../lib/definitions'
 import { isValidImageUrl } from '../lib/utlis'
 
@@ -10,11 +10,24 @@ export function useSerieForm () {
   const [error, setError] = useState<string | null>(null)
   const [isInvalid, setIsInvalid] = useState<boolean>(false)
 
+  const validPoster = async (): Promise<void> => {
+    const isValid = await isValidImageUrl(formData.poster)
+    if (isValid) {
+      setError(null)
+      setIsInvalid(false)
+    } else {
+      setError('Invalid URL')
+      setIsInvalid(true)
+    }
+  }
+
   const handleChangePoster = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFormData = structuredClone(formData)
 
     newFormData.poster = event.target.value
     setFormData(newFormData)
+
+    validPoster()
   }
 
   const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,21 +43,6 @@ export function useSerieForm () {
       poster: ''
     })
   }
-
-  useEffect(() => {
-    const validPoster = async (): Promise<void> => {
-      const isValid = await isValidImageUrl(formData.poster)
-      if (isValid) {
-        setError(null)
-        setIsInvalid(false)
-      } else {
-        setError('Invalid URL')
-        setIsInvalid(true)
-      }
-    }
-
-    validPoster()
-  }, [formData.poster])
 
   return {
     formData,

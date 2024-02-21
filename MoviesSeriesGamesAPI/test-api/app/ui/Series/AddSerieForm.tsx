@@ -1,8 +1,7 @@
 import { createSerie } from '@/app/lib/actions'
-import Input from '../Input'
+import ControlledInput from '../ControlledInput'
 import { useState } from 'react'
 import SuccesModal from '../SuccesModal'
-import { revalidatePath } from 'next/cache'
 import { useSerieForm } from '@/app/hooks/useSerieForm'
 
 export default function AddSerieForm ({ handleCloseModal }: { handleCloseModal: () => void}) {
@@ -22,8 +21,6 @@ export default function AddSerieForm ({ handleCloseModal }: { handleCloseModal: 
         setSucces(false)
         handleCloseModal()
         handleResetForm()
-        // IDK if revalidateTag/revalidatePath is the correct way to do it
-        revalidatePath('/series')
       }, 1000)
     }
   }
@@ -32,16 +29,16 @@ export default function AddSerieForm ({ handleCloseModal }: { handleCloseModal: 
     <div className='w-96 h-full flex flex-col gap-16 py-20'>
         <h3 className='text-center text-2xl font-semibold text-blue-600'>Add a new Serie to the list.</h3>
         <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
-            <Input
+            <ControlledInput
               handleChange={handleChangeTitle}
               value={formData.title}
-              name='title'
+              name='serie-title'
               placeholder='Title'
             />
-            <Input
+            <ControlledInput
               handleChange={handleChangePoster}
               value={formData.poster}
-              name='imageURL'
+              name='serie-poster'
               placeholder='Image URL'
             />
             {

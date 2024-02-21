@@ -10,6 +10,15 @@ export type BookResponseType = BookType
 
 export type BookFormType = Omit<BookType, 'id'>
 
+export type State = {
+    errors?: {
+      title?: string[]
+      poster?: string[]
+      external?: string[]
+    }
+    message?: string | null
+}
+
 // Series
 export interface SerieType {
     id: IDType

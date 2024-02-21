@@ -1,5 +1,5 @@
-import { getBooks } from '../lib/actions'
-import AddBook from '../ui/Books/AddBook'
+import Link from 'next/link'
+import { getBooks } from '../lib/bookActions'
 import { BooksList } from '../ui/Books/BooksList'
 
 const BooksController = async () => {
@@ -9,7 +9,13 @@ const BooksController = async () => {
     return (
     <>
       <div className='flex items-end mb-5'>
-        <AddBook />
+        <Link
+          href='/books/create-book'
+          className="bg-blue-500 rounded px-3 py-2 font-medium text-white"
+          scroll={false}
+        >
+          + Add Book
+        </Link>
       </div>
       <BooksList books={books} />
     </>

@@ -32,7 +32,6 @@ const AddBook = () => {
                     </div>
                 </div>
             }
-
         </>
   )
 }

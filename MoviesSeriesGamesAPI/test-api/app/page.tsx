@@ -1,9 +1,9 @@
-import Link from 'next/link'
+// import Link from 'next/link'
 
 export default function Home () {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Link href={'/movies'} >
+      {/* <Link href={'/movies'} >
         Movies
       </Link>
       <Link href={'/series'} >
@@ -11,7 +11,7 @@ export default function Home () {
       </Link>
       <Link href={'/books'} >
         Books
-      </Link>
+      </Link> */}
     </div>
   )
 }

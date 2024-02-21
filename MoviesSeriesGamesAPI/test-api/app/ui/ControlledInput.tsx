@@ -5,12 +5,14 @@ interface Props {
     placeholder: string
     type: string
     describedBy: string
+    value: string
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 // Should I use React.FC<Props> or { name, placeholder, type = 'text', handleChange } : Props,
 // or simply { name, placeholder, type = 'text', handleChange }:
 // { name: string, placeholder: string, type: string, handleChange: () => void }
-const Input: React.FC<Partial<Props>> = ({ name, placeholder, type = 'text', describedBy = '' }) => {
+const ControlledInput: React.FC<Partial<Props>> = ({ name, placeholder, type = 'text', value, handleChange }) => {
   const id = useId()
 
   return (
@@ -25,7 +27,8 @@ const Input: React.FC<Partial<Props>> = ({ name, placeholder, type = 'text', des
                 type={type}
                 id={id}
                 placeholder={placeholder}
-                aria-describedby={describedBy}
+                value={value}
+                onChange={handleChange}
             />
             <label
                 htmlFor={id}
@@ -39,4 +42,4 @@ const Input: React.FC<Partial<Props>> = ({ name, placeholder, type = 'text', des
   )
 }
 
-export default Input
+export default ControlledInput
