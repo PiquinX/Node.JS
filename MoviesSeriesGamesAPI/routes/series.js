@@ -1,10 +1,16 @@
 import { Router } from 'express'
 import { SeriesController } from '../controllers/series.js'
 
-export const SeriesRouter = Router()
+export function createSeriesRouter ({ seriesModel }) {
+  const SeriesRouter = Router()
 
-SeriesRouter.get('', SeriesController.getAll)
+  const seriesController = new SeriesController({ seriesModel })
 
-SeriesRouter.post('', SeriesController.create)
+  SeriesRouter.get('', seriesController.getAll)
 
-SeriesRouter.delete('/:id', SeriesController.delete)
+  SeriesRouter.post('', seriesController.create)
+
+  SeriesRouter.delete('/:id', seriesController.delete)
+
+  return SeriesRouter
+}

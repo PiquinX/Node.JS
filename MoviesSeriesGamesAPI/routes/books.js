@@ -1,10 +1,16 @@
 import { Router } from 'express'
 import { BooksController } from '../controllers/books.js'
 
-export const BooksRouter = Router()
+export function createBooksRouter ({ booksModel }) {
+  const BooksRouter = Router()
 
-BooksRouter.get('', BooksController.getAll)
+  const booksController = new BooksController({ booksModel })
 
-BooksRouter.post('', BooksController.create)
+  BooksRouter.get('', booksController.getAll)
 
-BooksRouter.delete('/:id', BooksController.delete)
+  BooksRouter.post('', booksController.create)
+
+  BooksRouter.delete('/:id', booksController.delete)
+
+  return BooksRouter
+}
