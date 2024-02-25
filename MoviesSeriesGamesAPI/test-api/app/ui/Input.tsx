@@ -5,12 +5,15 @@ interface Props {
     placeholder: string
     type: string
     describedBy: string
+    defaultValue: string
 }
 
 // Should I use React.FC<Props> or { name, placeholder, type = 'text', handleChange } : Props,
 // or simply { name, placeholder, type = 'text', handleChange }:
 // { name: string, placeholder: string, type: string, handleChange: () => void }
-const Input: React.FC<Partial<Props>> = ({ name, placeholder, type = 'text', describedBy = '' }) => {
+const Input: React.FC<Partial<Props>> = (
+  { name, placeholder, type = 'text', describedBy = '', defaultValue = '' }
+) => {
   const id = useId()
 
   return (
@@ -26,6 +29,7 @@ const Input: React.FC<Partial<Props>> = ({ name, placeholder, type = 'text', des
                 id={id}
                 placeholder={placeholder}
                 aria-describedby={describedBy}
+                defaultValue={defaultValue}
             />
             <label
                 htmlFor={id}

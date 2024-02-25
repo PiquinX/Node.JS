@@ -19,6 +19,19 @@ export class MoviesModel {
     return movies
   }
 
+  static async getByID ({ id }) {
+    try {
+      const [movie] = await connection.query(
+        'SELECT BIN_TO_UUID(id) id, title, poster FROM movie WHERE id = UUID_TO_BIN(?);',
+        [id]
+      )
+
+      return movie[0]
+    } catch (e) {
+      return false
+    }
+  }
+
   static async create ({ input }) {
     const {
       title,
@@ -28,7 +41,7 @@ export class MoviesModel {
     const [movies] = await connection.query(
       'SELECT BIN_TO_UUID(id) id, title, poster FROM movie'
     )
-    console.log(movies)
+
     if (movies.findIndex(
       movie => movie.title.toLowerCase() === input.title.toLowerCase()
     ) !== -1) return { error: 'The movie you are tryng to create alrady exists' }
@@ -58,7 +71,7 @@ export class MoviesModel {
 
   static async delete ({ id }) {
     const deletedMovie = await connection.query(
-      'SELECT BIN_TO_UUID(id) id, title, poster FROM movie id = WHERE UUID_TO_BIN(?)',
+      'SELECT BIN_TO_UUID(id) id, title, poster FROM movie WHERE id = UUID_TO_BIN(?);',
       [id]
     )
 
@@ -72,5 +85,42 @@ export class MoviesModel {
     }
 
     return deletedMovie[0]
+  }
+
+  static async update ({ id, input }) {
+    try {
+      const [movie] = await connection.query(
+        'SELECT title, poster FROM movie WHERE id = UUID_TO_BIN(?);',
+        [id]
+      )
+
+      const newMovie = {
+        ...movie[0],
+        ...input
+      }
+
+      const {
+        title,
+        poster
+      } = newMovie
+
+      await connection.query(
+        `UPDATE movie
+        SET title = ?,
+        poster = ?
+        WHERE id = UUID_TO_BIN(?);`,
+        [title, poster, id]
+      )
+    } catch (e) {
+      return false
+    }
+
+    const [updatedMovie] = await connection.query(
+      `SELECT title, poster FROM movie 
+      WHERE id = UUID_TO_BIN(?);`,
+      [id]
+    )
+
+    return updatedMovie[0]
   }
 }

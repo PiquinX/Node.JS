@@ -11,6 +11,6 @@ export const validateBook = (object) => {
 }
 
 // ? To modify the book
-// export const validatePartialBook = (object) => {
-//   return bookSchema.partial().safeParse(object)
-// }
+export const validatePartialBook = (object) => {
+  return bookSchema.partial().safeParse(object)
+}

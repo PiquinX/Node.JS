@@ -19,6 +19,7 @@ export const Header = () => {
               <Link
                 href={link.href}
                 key={index}
+                scroll={false}
                 className={`${pathName === link.href ? 'border-black' : 'border-transparent opacity-50'} px-3 py-2 rounded-t-md font-semibold duration-200 border-b-2`}
               >
                 {link.name}

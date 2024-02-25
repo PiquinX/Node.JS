@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { getBooks } from '../lib/bookActions'
-import { BooksList } from '../ui/Books/BooksList'
+import { getBooks } from '../../lib/actions/bookActions'
+import { BooksList } from '../../ui/Books/show/BooksList'
 
 const BooksController = async () => {
   const books = await getBooks()

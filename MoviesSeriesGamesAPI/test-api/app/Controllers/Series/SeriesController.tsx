@@ -1,6 +1,6 @@
-import { getSeries } from '../lib/actions'
-import AddSerie from '../ui/Series/AddSerie'
-import { SeriesList } from '../ui/Series/SeriesList'
+import { getSeries } from '../../lib/actions/seriesActions'
+import AddSerie from '../../ui/Series/add/AddSerie'
+import { SeriesList } from '../../ui/Series/show/SeriesList'
 
 const SeriesController = async () => {
   const series = await getSeries()

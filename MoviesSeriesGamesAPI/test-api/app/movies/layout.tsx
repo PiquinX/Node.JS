@@ -1,4 +1,4 @@
-import BooksController from '../Controllers/Books/BooksController'
+import MoviesController from '../Controllers/Movies/MoviesController'
 
 export default function BooksLayout ({
   children
@@ -7,7 +7,7 @@ export default function BooksLayout ({
 }>) {
   return (
     <>
-        <BooksController />
+        <MoviesController />
         {children}
     </>
   )

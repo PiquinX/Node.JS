@@ -11,6 +11,6 @@ export const validateSerie = (object) => {
 }
 
 // ? To modify the serie
-// export const validatePartialSerie = (object) => {
-//   return serieSchema.partial().safeParse(object)
-// }
+export const validatePartialSerie = (object) => {
+  return serieSchema.partial().safeParse(object)
+}

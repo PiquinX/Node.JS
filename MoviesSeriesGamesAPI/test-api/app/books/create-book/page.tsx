@@ -1,7 +1,7 @@
 'use client'
 
 import { handleCloseModal } from '@/app/lib/utlis'
-import AddBookForm from '@/app/ui/Books/AddBookForm'
+import AddBookForm from '@/app/ui/Books/add/AddBookForm'
 import Link from 'next/link'
 import { useEffect, useId } from 'react'
 
@@ -20,10 +20,10 @@ export default function Page () {
   }
 
   useEffect(() => {
-    addEventListener('click', handleClick)
+    addEventListener('mousedown', handleClick)
 
     return () => {
-      removeEventListener('click', handleClick)
+      removeEventListener('mousedown', handleClick)
     }
   }, [])
 

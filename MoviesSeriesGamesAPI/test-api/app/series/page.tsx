@@ -1,9 +1,7 @@
-import SeriesController from '../Controllers/SeriesController'
-
-export default function page () {
+const Page = () => {
   return (
-        <>
-            <SeriesController />
-        </>
+            <></>
   )
 }
+
+export default Page

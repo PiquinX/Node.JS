@@ -1,8 +1,6 @@
-import MoviesController from '../Controllers/MoviesController'
-
 const Page = () => {
   return (
-            <MoviesController />
+            <></>
   )
 }
 

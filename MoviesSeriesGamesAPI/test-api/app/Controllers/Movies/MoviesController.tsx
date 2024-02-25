@@ -1,6 +1,6 @@
-import { getMovies } from '../lib/actions'
-import AddMovie from '../ui/Movies/AddMovie'
-import { MoviesList } from '../ui/Movies/MoviesList'
+import { getMovies } from '../../lib/actions/moviesActions'
+import AddMovie from '../../ui/Movies/add/AddMovie'
+import { MoviesList } from '../../ui/Movies/show/MoviesList'
 
 const MoviesController = async () => {
   const movies = await getMovies()

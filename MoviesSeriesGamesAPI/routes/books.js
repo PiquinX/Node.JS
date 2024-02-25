@@ -8,9 +8,13 @@ export function createBooksRouter ({ booksModel }) {
 
   BooksRouter.get('', booksController.getAll)
 
+  BooksRouter.get('/:id', booksController.getByID)
+
   BooksRouter.post('', booksController.create)
 
   BooksRouter.delete('/:id', booksController.delete)
+
+  BooksRouter.patch('/:id', booksController.update)
 
   return BooksRouter
 }

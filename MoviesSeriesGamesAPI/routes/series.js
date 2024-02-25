@@ -8,9 +8,13 @@ export function createSeriesRouter ({ seriesModel }) {
 
   SeriesRouter.get('', seriesController.getAll)
 
+  SeriesRouter.get('/:id', seriesController.getByID)
+
   SeriesRouter.post('', seriesController.create)
 
   SeriesRouter.delete('/:id', seriesController.delete)
+
+  SeriesRouter.patch('/:id', seriesController.update)
 
   return SeriesRouter
 }

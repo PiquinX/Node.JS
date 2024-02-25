@@ -11,6 +11,6 @@ export const validateMovie = (object) => {
 }
 
 // ? To modify the movie
-// export const validatePartialMovie = (object) => {
-//   return movieSchema.partial().safeParse(object)
-// }
+export const validatePartialMovie = (object) => {
+  return movieSchema.partial().safeParse(object)
+}

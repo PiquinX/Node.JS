@@ -19,6 +19,19 @@ export class SeriesModel {
     return series
   }
 
+  static async getByID ({ id }) {
+    try {
+      const [serie] = await connection.query(
+        'SELECT BIN_TO_UUID(id) id, title, poster FROM serie WHERE id = UUID_TO_BIN(?);',
+        [id]
+      )
+
+      return serie[0]
+    } catch (e) {
+      return false
+    }
+  }
+
   static async create ({ input }) {
     const {
       title,
@@ -58,7 +71,7 @@ export class SeriesModel {
 
   static async delete ({ id }) {
     const deletedSerie = await connection.query(
-      'SELECT BIN_TO_UUID(id) id, title, poster FROM serie id = WHERE UUID_TO_BIN(?)',
+      'SELECT BIN_TO_UUID(id) id, title, poster FROM serie WHERE id = UUID_TO_BIN(?)',
       [id]
     )
 
@@ -72,5 +85,45 @@ export class SeriesModel {
     }
 
     return deletedSerie[0]
+  }
+
+  static async update ({ id, input }) {
+    try {
+      const [serie] = await connection.query(
+        `SELECT title, poster FROM serie 
+        WHERE id = UUID_TO_BIN(?);`,
+        [id]
+      )
+
+      const newSerie = {
+        ...serie[0],
+        ...input
+      }
+
+      const {
+        title,
+        poster
+      } = newSerie
+
+      console.log({ title, poster, id })
+
+      await connection.query(
+        `UPDATE serie
+        SET title = ?,
+        poster = ?
+        WHERE id = UUID_TO_BIN(?);`,
+        [title, poster, id]
+      )
+    } catch (e) {
+      return false
+    }
+
+    const [updatedSerie] = await connection.query(
+      `SELECT title, poster FROM serie 
+      WHERE id = UUID_TO_BIN(?);`,
+      [id]
+    )
+
+    return updatedSerie[0]
   }
 }

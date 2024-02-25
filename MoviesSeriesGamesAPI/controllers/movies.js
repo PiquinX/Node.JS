@@ -1,4 +1,4 @@
-import { validateMovie } from '../schemas/movie.js'
+import { validateMovie, validatePartialMovie } from '../schemas/movie.js'
 
 export class MoviesController {
   constructor ({ moviesModel }) {
@@ -11,6 +11,15 @@ export class MoviesController {
     if (!movies) return res.status(404).send({ errorMessage: 'error 404, movies not found' })
 
     return res.send(movies)
+  }
+
+  getByID = async (req, res) => {
+    const { id } = req.params
+    const movie = await this.moviesModel.getByID({ id })
+
+    if (!movie) return res.status(404).json({ errorMessage: 'error 404, movie not found' })
+
+    return res.json(movie)
   }
 
   create = async (req, res) => {
@@ -41,5 +50,22 @@ export class MoviesController {
     }
 
     return res.send(deletedMovie)
+  }
+
+  update = async (req, res) => {
+    const result = validatePartialMovie(req.body)
+    const { id } = req.params
+
+    if (result.error) return res.status(404).json({ errorMessage: result.error.issues[0].message })
+
+    const updatedMovie = await this.moviesModel.update({ id, input: result.data })
+
+    if (updatedMovie === false) {
+      return res.status(404).json({
+        errorMessage: 'error 404, movie not found'
+      })
+    }
+
+    return res.send(updatedMovie)
   }
 }

@@ -8,9 +8,13 @@ export function createMoviesRouter ({ moviesModel }) {
 
   MoviesRouter.get('', moviesController.getAll)
 
+  MoviesRouter.get('/:id', moviesController.getByID)
+
   MoviesRouter.post('', moviesController.create)
 
   MoviesRouter.delete('/:id', moviesController.delete)
+
+  MoviesRouter.patch('/:id', moviesController.update)
 
   return MoviesRouter
 }

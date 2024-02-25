@@ -1,4 +1,5 @@
-type IDType = `${string}-${string}-${string}-${string}-${string}`
+// export type IDType = `${string}-${string}-${string}-${string}-${string}`
+export type IDType = string
 
 // Books
 export interface BookType {
